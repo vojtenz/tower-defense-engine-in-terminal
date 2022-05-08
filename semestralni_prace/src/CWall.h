@@ -3,7 +3,9 @@
 
 //CWall.h
 #include "CTile.h"
-
+/**
+ * Class inherited from CTile representing wall
+ */
 class CWall: public CTile{
 public:
     CWall();

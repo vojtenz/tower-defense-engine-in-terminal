@@ -3,7 +3,9 @@
 #define SEMESTRALNI_PRACE_CPATH_H
 //CPath.h
 #include "CTile.h"
-
+/**
+ * Class inherited from CTile representing path
+ */
 class CPath: public CTile{
     public:
      CPath();

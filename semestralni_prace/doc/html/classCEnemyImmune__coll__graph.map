@@ -1,0 +1,9 @@
+<map id="CEnemyImmune" name="CEnemyImmune">
+<area shape="rect" id="node1" title=" " alt="" coords="93,655,253,761"/>
+<area shape="rect" id="node2" href="$classCEnemy.html" title=" " alt="" coords="70,500,171,592"/>
+<area shape="rect" id="node3" href="$classCActiveTile.html" title=" " alt="" coords="5,344,127,451"/>
+<area shape="rect" id="node4" href="$classCTile.html" title=" " alt="" coords="9,145,107,267"/>
+<area shape="rect" id="node5" title=" " alt="" coords="33,5,83,83"/>
+<area shape="rect" id="node6" title=" " alt="" coords="144,167,183,245"/>
+<area shape="rect" id="node7" title=" " alt="" coords="195,507,254,585"/>
+</map>

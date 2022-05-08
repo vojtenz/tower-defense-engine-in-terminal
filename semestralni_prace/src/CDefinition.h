@@ -5,6 +5,9 @@
 #include "CEnemy.h"
 #include "CTower.h"
 
+/**
+ * Class for loading definitions from file
+ */
 class CDefinition{
     public:
      static bool loadEnemyDef(std::vector<CEnemy>& enemy);

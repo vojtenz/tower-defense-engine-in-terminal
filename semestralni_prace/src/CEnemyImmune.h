@@ -2,7 +2,10 @@
 #define SEMESTRALNI_PRACE_CENEMYIMMUNE_H
 //CEnemyImmune.h
 #include "CEnemy.h"
-
+/**
+ * Class representing enemy which is immune to some tower
+ *
+ */
 class CEnemyImmune: public CEnemy{
     public:
      CEnemyImmune(char symbol, int _pos_x, int _pos_y, int _health, std::string _tower);

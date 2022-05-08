@@ -1,0 +1,6 @@
+<map id="CTowerGreen" name="CTowerGreen">
+<area shape="rect" id="node1" title=" " alt="" coords="5,543,139,649"/>
+<area shape="rect" id="node2" href="$classCTower.html" title=" " alt="" coords="17,344,127,495"/>
+<area shape="rect" id="node3" href="$classCActiveTile.html" title=" " alt="" coords="11,175,133,296"/>
+<area shape="rect" id="node4" href="$classCTile.html" title=" " alt="" coords="23,5,121,127"/>
+</map>

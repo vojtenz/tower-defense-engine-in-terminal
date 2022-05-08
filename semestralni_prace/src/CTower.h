@@ -3,7 +3,9 @@
 #define SEMESTRALNI_PRACE_CTOWER_H
 
 #include "CActiveTile.h"
-
+/**
+ * Class inherited from CActiveTile representing generic tower
+ */
 class CTower: public CActiveTile{
     public:
      CTower(char symbol, int pos_x, int pos_y, int _price, int _range, std::string _color);

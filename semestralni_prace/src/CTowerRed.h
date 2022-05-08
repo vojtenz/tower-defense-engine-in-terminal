@@ -2,7 +2,9 @@
 #define SEMESTRALNI_PRACE_CTOWERRED_H
 //CTowerRed.h
 #include "CTower.h"
-
+/**
+ * Class inherited from CActiveTile representing red tower
+ */
 class CTowerRed: public CTower{
     public:
      CTowerRed(char symbol, int pos_x, int pos_y, int _price, int _range);

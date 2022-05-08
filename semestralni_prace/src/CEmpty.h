@@ -3,7 +3,9 @@
 
 //CEmpty.h
 #include "CTile.h"
-
+/**
+ * Class inherited from CTile representing empty space
+ */
 class CEmpty: public CTile{
     public:
      CEmpty();

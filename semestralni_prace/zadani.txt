@@ -41,3 +41,10 @@ Ukázky:
     https://en.wikipedia.org/wiki/GemCraft
     http://plantsvszombies.wikia.com/wiki/Main_Page
 
+Při vypracovávání jsem se inspiroval principem tower defense hry TD BLOONS 5
+Z předem daného souboru se načte definice věží a nepátel.
+Načte se  také z předem daného souboru definice mapy, mapa může a nemusí obsahovat cestu kudy nepřátel jdou. Pokud cestu neobsahuje,
+cesta se pomocí BFS vyhledá sama a do mapy zakreslí. Mapa je reprezentována jako 1D pole ukazelů na společnou třídu CTile.
+Uživatel je vyzván po startu hry ke koupi věží a následnému umístění pomocí vstupu do terminálu (uživatel zadá id věže a souřadnice).
+Po koupi se hraje, npřátelé se snaží probojovat až na druhý konec mapy, kolo je ukončeno 2 způsoby, pokud se velký počet nepřátel dostane až na druhý konec mapy.
+Nebo pokud jsou všichni nepřátele zabiti. Následuje opět dialog s uživatelem o nakoupení věží a posilnění nepřátel (další druhy, větši počet)
