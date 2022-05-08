@@ -1,2 +1,5 @@
 *.out
+semestralni_prace/cmake-build-debug/
+semestralni_prace/CMakeLists.txt
+.idea/
 
