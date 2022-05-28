@@ -5,10 +5,12 @@
 #include <vector>
 #include <memory>
 #include <ostream>
+#include <fstream>
 /**
  * Class representing the map of the game
  */
 class CMap{
+public:
     CMap() = default;
     /**
      *
@@ -34,13 +36,17 @@ class CMap{
      * Prints the map
      * @param os output stream to map should be printed
      */
-    void renderMap(std::ostream& os);
+    void renderMap(std::ostream& os, bool coords);
     int getWidth();
     int getHeight();
 
-    private:
+private:
      int width;
      int height;
+     std::ifstream map_file;
      std::vector<std::shared_ptr<CTile>> map; /** the container which is the whole map*/
+     void addCharToMap(char x);
+     void renderCords(std::ostream& os);
+     void renderNoCords(std::ostream& os);
 };
 #endif //SEMESTRALNI_PRACE_CMAP_H

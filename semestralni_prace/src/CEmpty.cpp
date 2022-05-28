@@ -1,4 +1,4 @@
-//CEmpty.h
+//CEmpty.cpp
 #include "CEmpty.h"
 
 CEmpty::CEmpty(): CTile(' '){}

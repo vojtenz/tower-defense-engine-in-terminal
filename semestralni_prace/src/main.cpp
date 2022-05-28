@@ -7,9 +7,24 @@
 #include "CActiveTile.h"
 #include "CTowerRed.h"
 #include "CTowerGreen.h"
+#include "CMap.h"
+#include <iomanip>
+#include <cassert>
+
 using namespace std;
 
 int main() {
+    CMap map;
+    assert(map.loadMapfromFile("../examples/map.txt"));
+    cout << "Height: " << map.getHeight() << endl;
+    cout << "Width: " << map.getWidth() << endl;
+    cout << "\n";
+    map.renderMap(cout, false);
+    cout << "\n";
+    cout << "\n";
+    cout << "\n";
+    map.renderMap(cout, true);
+    /*
     vector<shared_ptr<CTile>> barvy;
     barvy.push_back(make_shared<CTowerRed>('F',0,0,15000,3));
     barvy.push_back(make_shared<CTowerGreen>('O',15,15,690,1));
@@ -29,7 +44,7 @@ int main() {
         cout << "Price: " << tmp->getPrice() << "\n";
         cout << "--------------------------------------------\n";
     }
-    /*
+
     vector<shared_ptr<CTile>> nvm;
     nvm.push_back(make_shared<CEmpty>());
     nvm.push_back(make_shared<CWall>());
