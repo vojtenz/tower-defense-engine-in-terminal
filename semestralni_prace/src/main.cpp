@@ -15,7 +15,7 @@ using namespace std;
 
 int main() {
     CMap map;
-    assert(map.loadMapfromFile("../examples/map.txt"));
+    assert(map.initMap("../examples/map.txt"));
     cout << "Height: " << map.getHeight() << endl;
     cout << "Width: " << map.getWidth() << endl;
     cout << "\n";
