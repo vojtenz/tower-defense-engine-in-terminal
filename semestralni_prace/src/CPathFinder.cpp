@@ -9,6 +9,8 @@ bool CPathFinder::pathExists(const std::vector<std::shared_ptr<CTile>> &map, std
     Coord curr_coord = map_start_coord;
     Coord last_coord;
     Coord tmp;
+    //Directions
+    const char dir[4]= {'U','D','L','R'};
 
     //number of new neighbours around tile
     char neighbour_count;
@@ -87,7 +89,7 @@ bool CPathFinder::pathFind(const std::vector<std::shared_ptr<CTile>> &map, std::
         return false;
     }
 
-    const char str_dir[]= {'D', 'U', 'R', 'L'};
+    const char dir[]= {'D', 'U', 'R', 'L'};
 
     //creating directions string
     Coord *curr = prev.at(getMapPos(map_end_coord));
@@ -98,7 +100,7 @@ bool CPathFinder::pathFind(const std::vector<std::shared_ptr<CTile>> &map, std::
             tmp.x+=dir_x[i];
             tmp.y+=dir_y[i];
             if(tmp == *curr) {
-                directions.insert(0, 1, str_dir[i]);
+                directions.insert(0, 1, dir[i]);
                 last = curr;
                 break;
             }
@@ -109,8 +111,8 @@ bool CPathFinder::pathFind(const std::vector<std::shared_ptr<CTile>> &map, std::
     return true;
 }
 
-int CPathFinder::getMapPos(const CPathFinder::Coord &xy) const {
-    return (xy.x*map_width)+xy.y;
+int CPathFinder::getMapPos(const CPathFinder::Coord &coordinates) const {
+    return (coordinates.x*map_width)+coordinates.y;
 }
 
 bool CPathFinder::Coord::operator!=(const CPathFinder::Coord &r) const {

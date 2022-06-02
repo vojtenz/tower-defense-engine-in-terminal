@@ -6,7 +6,6 @@
 #include <vector>
 /**
  * Class used for communicating with the user
- *
  */
 class CDialog{
     public:

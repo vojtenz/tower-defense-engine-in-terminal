@@ -19,7 +19,12 @@ int main() {
     cout << "Height: " << map.getHeight() << endl;
     cout << "Width: " << map.getWidth() << endl;
     cout << "\n";
-    map.renderMap(cout, false);
+    map.renderMap(cout);
+    cout << "\n";
+    cout << "\n";
+    cout << "\n";
+    CTowerRed nvm('P',4,8,15000,4);
+    map.renderMap(cout, true, &nvm);
     cout << "\n";
     cout << "\n";
     cout << "\n";

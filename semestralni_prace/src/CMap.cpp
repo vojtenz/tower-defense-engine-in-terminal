@@ -6,8 +6,9 @@
 #include "CEnd.h"
 #include "CStart.h"
 #include "CPathFinder.h"
+#include "CTower.h"
 #include <iomanip>
-#define COORDS_OFFSET 5
+#include <iostream>
 
 std::shared_ptr<CTile>& CMap::at(size_t x) {
     if(x >= 0 && x < CMap::map.size())
@@ -30,7 +31,7 @@ bool CMap::initMap(const std::string& src_file) {
         if(!fp.pathFind(map,str_path)) return false;
         reconstructPath(str_path);
     }
-    path = str_path;
+    path_direction = str_path;
     return true;
 }
 
@@ -88,61 +89,13 @@ void CMap::addCharToMap(const char x) {
         case 'x':
             CMap::map.push_back(std::make_shared<CEnd>());
             break;
-        case '.':
+        case ':':
             CMap::map.push_back(std::make_shared<CPath>());
             break;
-
         default:
             CMap::map.push_back(std::make_shared<CEmpty>());
     }
 }
-
-void CMap::renderMap(std::ostream &os, bool coords) {
-    //system("clear");
-    //os << "\033[2J\033[1;1H";
-    coords ? renderCords(os) : renderNoCords(os);
-    os << "\n";
-}
-
-void CMap::renderNoCords(std::ostream &os) {
-    for(size_t i = 0; i < CMap::map.size(); ++i){
-        if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "");
-        os << *(CMap::map.at(i)) ;
-    }
-}
-
-void CMap::renderCords(std::ostream &os) {
-
-    //offset
-    os << std::string(COORDS_OFFSET, ' ');
-    for(size_t jj = 0; jj < CMap::width-1; ++jj){
-        if((jj%5 == 0)) os << std::setw(5) << std::left << jj;
-        else os << std::setfill(' ');
-    }
-    os << CMap::width-1;
-    os << "\n";
-
-    //offset
-    os << std::string(COORDS_OFFSET, ' ');
-    for(size_t j = 0; j < CMap::width-1; ++j){
-        os << ((j%5 == 0) ? "|" : ".");
-    }
-    os << "|";
-    os << "\n";
-
-    int line = 0;
-    for(size_t i = 0; i < CMap::map.size(); ++i){
-        if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "") << line++ << std::string(COORDS_OFFSET - 1, ' ');
-        os << *(CMap::map.at(i)) ;
-    }
-}
-
-void CMap::clearPath() {
-    for(auto & i : map){
-        if(i->getType() == "path") i = std::make_shared<CEmpty>();
-    }
-}
-
 void CMap::reconstructPath(const std::string& directions) {
     std::pair<int,int> curr = start;
     const char dir_char[]= {'U','D','L','R'};
@@ -160,6 +113,65 @@ void CMap::reconstructPath(const std::string& directions) {
     }
 }
 
+void CMap::renderMap(std::ostream &os, bool coords, CTower* tower_ptr) {
+    coords ? renderCords(os, tower_ptr) : renderNoCords(os);
+}
+
+void CMap::renderNoCords(std::ostream &os) {
+    for(size_t i = 0; i < CMap::map.size(); ++i){
+        if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "");
+        os << *(CMap::map.at(i)) ;
+    }
+}
+
+void CMap::renderCords(std::ostream &os, CTower* tower_ptr) {
+    const short int coords_offset = 5;
+    renderHorizontalCords(os,false, coords_offset);
+    os << "\n";
+    int line = 0;
+    for(size_t i = 0; i < CMap::map.size(); ++i){
+        if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "") << line++ << std::string(coords_offset - 1, ' ');
+        if(tower_ptr != nullptr && i == (tower_ptr->getX()*width)+tower_ptr->getY()){
+            os << *tower_ptr;
+            continue;
+        }
+        os << *(CMap::map.at(i));
+    }
+    os << "\n";
+    renderHorizontalCords(os,true, coords_offset);
+}
+
+void CMap::renderHorizontalCords(std::ostream&os, bool reversed, int coords_offset, int distance)const{
+    char option = reversed ? 1 : 0;
+    for(int i = 0; i < 2; ++i, ++option, option%=2) {
+        //horizontal offset, numbers with default distance 5
+        if (option == 0) {
+            os << std::string(coords_offset, ' ');
+            for (size_t jj = 0; jj < CMap::width - 1; ++jj) {
+                if ((jj % distance == 0)) os << std::setw(distance) << std::left << jj;
+                else os << std::setfill(' ');
+            }
+            os << CMap::width - 1;
+            if(!reversed) os << "\n";
+        }
+        //horizontal offset, dots and vertical lines associated to number above
+        if (option == 1) {
+            os << std::string(coords_offset, ' ');
+            for (size_t j = 0; j < CMap::width - 1; ++j) {
+                os << ((j % distance == 0) ? "|" : ".");
+            }
+            os << "|";
+            if(reversed) os << "\n";
+        }
+    }
+}
+
+void CMap::clearPath() {
+    for(auto & i : map){
+        if(i->getType() == "path") i = std::make_shared<CEmpty>();
+    }
+}
+
 size_t CMap::getWidth() const{
     return CMap::width;
 }
@@ -167,3 +179,8 @@ size_t CMap::getWidth() const{
 size_t CMap::getHeight() const{
     return CMap::height;
 }
+
+const std::string& CMap::getPathDirection() const {
+    return path_direction;
+}
+
