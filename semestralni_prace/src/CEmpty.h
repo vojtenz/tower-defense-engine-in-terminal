@@ -8,8 +8,10 @@
  */
 class CEmpty: public CTile{
     public:
-     CEmpty();
-     virtual std::string getType()const;
+     explicit CEmpty(char symbol = ' ');
+     std::string getType()const override;
+     bool isBlock() override;
+     bool isPlaceable() override;
 };
 
 

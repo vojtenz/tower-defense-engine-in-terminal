@@ -7,9 +7,12 @@
  */
 class CEnemy: public CActiveTile{
     public:
-     CEnemy(char symbol, int _pos_x, int _pos_y, int _health);
-     virtual std::string getType()const;
+     CEnemy(char symbol, int _health);
+     std::string getType()const override;
+     void print(std::ostream& os) const override;
      int health;
+    private:
+     static std::string bleeding_color;
 };
 
 #endif //SEMESTRALNI_PRACE_CENEMY_H

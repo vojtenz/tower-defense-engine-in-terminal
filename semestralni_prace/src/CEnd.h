@@ -7,7 +7,7 @@
  */
 class CEnd: public CTile{
 public:
-    CEnd();
-    virtual std::string getType()const;
+    explicit CEnd(char symbol = 'x');
+    std::string getType()const override;
 };
 #endif //SEMESTRALNI_PRACE_CEND_H

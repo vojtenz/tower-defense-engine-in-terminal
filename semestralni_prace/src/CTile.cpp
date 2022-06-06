@@ -7,6 +7,10 @@ void CTile::print(std::ostream &os) const {
     os << symbol;
 }
 
+bool CTile::isBlock() {return true;}
+
+bool CTile::isPlaceable() {return false;}
+
 std::ostream& operator << (std::ostream& os, const CTile& ctile){
     ctile.print(os);
     return os;

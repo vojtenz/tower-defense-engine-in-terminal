@@ -12,7 +12,7 @@ class CTile{
         char symbol;
 
     public:
-     CTile(char _symbol);
+     explicit CTile(char _symbol);
      virtual ~CTile() = default;
 
      /**
@@ -26,6 +26,17 @@ class CTile{
       * @return string representing the class type.
       */
      virtual std::string getType()const = 0;
+
+     /**
+      *  Returns true if the tile cant be shoot through i.e is blocking the shot
+      * @return true or false
+      */
+     virtual bool isBlock();
+     /**
+      * Returns true if tower can be placed on this tile
+      * @return
+      */
+     virtual bool isPlaceable();
 };
 
 /**

@@ -131,7 +131,7 @@ void CMap::renderCords(std::ostream &os, CTower* tower_ptr) {
     int line = 0;
     for(size_t i = 0; i < CMap::map.size(); ++i){
         if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "") << line++ << std::string(coords_offset - 1, ' ');
-        if(tower_ptr != nullptr && i == (tower_ptr->getX()*width)+tower_ptr->getY()){
+        if(tower_ptr != nullptr && i == (tower_ptr->pos_x*width)+tower_ptr->pos_y){
             os << *tower_ptr;
             continue;
         }

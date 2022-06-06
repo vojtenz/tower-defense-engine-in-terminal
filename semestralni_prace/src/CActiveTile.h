@@ -7,23 +7,9 @@
  */
 class CActiveTile: public CTile{
     public:
-     CActiveTile(char symbol, int _pos_x, int _pos_y);
-
-     /**
-      * Returns X coordinates of the CActiveTile class
-      * @return X coordinates
-      */
-     int getX()const;
-
-    /**
-     * Returns Y coordinates of the CActiveTile class
-     * @return Y coordinates
-     */
-     int getY()const;
-
-    protected:
-        int pos_x;
-        int pos_y;
+     explicit CActiveTile(char symbol, int _pos_x = -1, int _pos_y = -1);
+     int pos_x;
+     int pos_y;
 };
 
 #endif //SEMESTRALNI_PRACE_CACTIVETILE_H

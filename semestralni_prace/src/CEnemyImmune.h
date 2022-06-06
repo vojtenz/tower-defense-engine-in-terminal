@@ -8,8 +8,8 @@
  */
 class CEnemyImmune: public CEnemy{
     public:
-     CEnemyImmune(char symbol, int _pos_x, int _pos_y, int _health, std::string _tower);
-     virtual std::string getType()const;
+     CEnemyImmune(char symbol, int _health, const std::string& _tower_color);
+     std::string getType()const override;
      std::string getImmuneTower() const;
     private:
      std::string tower_color;

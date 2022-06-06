@@ -1,7 +1,7 @@
 //CTowerGreen.cpp
 #include "CTowerGreen.h"
-CTowerGreen::CTowerGreen(char symbol, int pos_x, int pos_y, int price, int range)
-                        :CTower(symbol, pos_x, pos_y, price, range, "green"){}
+CTowerGreen::CTowerGreen(char symbol, int price, int range, int dmg)
+                        :CTower(symbol, price, range,dmg, "green"){}
 
 std::string CTowerGreen::getType() const {
     return "tower_green";

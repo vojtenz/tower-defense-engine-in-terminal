@@ -8,8 +8,9 @@
  */
 class CPath: public CTile{
     public:
-     CPath();
-     virtual std::string getType()const;
+     explicit CPath(char symbol = ':');
+     std::string getType()const override;
+     bool isBlock() override;
 };
 
 

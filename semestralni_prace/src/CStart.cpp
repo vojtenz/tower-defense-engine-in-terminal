@@ -1,7 +1,7 @@
 //CStart.cpp
 #include "CStart.h"
 
-CStart::CStart(): CTile('s'){}
+CStart::CStart(char symbol): CTile(symbol){}
 
 std::string CStart::getType() const {
     return "start";

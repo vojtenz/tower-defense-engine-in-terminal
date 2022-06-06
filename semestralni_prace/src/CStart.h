@@ -7,7 +7,7 @@
  */
 class CStart: public CTile{
 public:
-    CStart();
-    virtual std::string getType()const;
+    explicit CStart(char symbol = 's');
+    std::string getType()const override;
 };
 #endif //SEMESTRALNI_PRACE_CSTART_H

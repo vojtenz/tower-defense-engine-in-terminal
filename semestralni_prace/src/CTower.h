@@ -3,19 +3,27 @@
 #define SEMESTRALNI_PRACE_CTOWER_H
 
 #include "CActiveTile.h"
+#include <map>
+
 /**
  * Class inherited from CActiveTile representing generic tower
  */
 class CTower: public CActiveTile{
     public:
-     CTower(char symbol, int pos_x, int pos_y, int _price, int _range, std::string _color);
-     virtual std::string getType()const;
+     CTower(char symbol, int _price, int _range, int _dmg, const std::string& _color);
+     std::string getType()const override;
      int getPrice()const;
      int getRange()const;
+     int getDmg()const;
+     const std::string& getColor()const;
+     void print(std::ostream& os) const override;
+     void printAttribute(std::ostream& os)const;
     protected:
+     int dmg;
      int price;
      int range;
      std::string color;
-
+     static std::map<std::string, std::string> colorMap;
+     static std::map<std::string, std::string> initColorMap();
 };
 #endif //SEMESTRALNI_PRACE_CTOWER_H

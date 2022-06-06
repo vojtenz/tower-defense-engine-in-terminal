@@ -8,8 +8,8 @@
  */
 class CWall: public CTile{
 public:
-    CWall();
-    virtual std::string getType()const;
+    explicit CWall(char symbol = '#');
+    std::string getType()const override;
 };
 
 #endif //SEMESTRALNI_PRACE_CWALL_H
