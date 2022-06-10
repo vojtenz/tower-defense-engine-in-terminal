@@ -44,7 +44,7 @@ public:
      * @param coords optional parameter determining if the printing should be with coordinates around the map (default false)
      * @param tower_ptr optional parameter enabling to print tower in certain position for user to see without the need to add tower to the map
      */
-    void renderMap(std::ostream& os, bool coords = false, CTower* tower_ptr = nullptr);
+    void renderMap(std::ostream& os, bool coords = false, int x = -1, int y = -1, CTower* tower_ptr = nullptr);
 
     size_t getWidth() const;
 
@@ -70,7 +70,7 @@ private:
       * @param os reference to the output stream
       * @param tower_ptr Optional parameter, pointer to the tower which should be printed at certain position for user to see without the need to insert tower to the map
       */
-     void renderCords(std::ostream& os, CTower* tower_ptr = nullptr);
+     void renderCords(std::ostream& os, int x , int y, CTower* tower_ptr);
 
      /**
       * Prints map without the coordinates

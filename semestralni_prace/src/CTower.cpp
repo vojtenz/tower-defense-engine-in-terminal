@@ -44,12 +44,23 @@ std::map<std::string, std::string> CTower::colorMap = CTower::initColorMap();
 void CTower::printAttribute(std::ostream &os) const {
     os << "Symbol: ";
     print(os);
-    os.imbue(std::locale(""));
-    os << " | Price: " << std::fixed << price;
+    os << " | Price: ";
+    priceDelim(os,price);
     os << " | Range: " << range;
     os << " | Damage: " << dmg;
+    os << std::setfill(' ');
 }
 
 int CTower::getDmg() const {
     return 0;
 }
+
+void CTower::priceDelim(std::ostream& os, int local_price)const{
+    if (local_price < 1000) {
+        os << local_price;
+        return;
+    }
+    priceDelim(os,local_price/1000);
+    os << std::setw(3) << std::setfill('0') << "." << local_price%1000;
+}
+

@@ -1,23 +1,62 @@
 #include <iostream>
-#include "CEmpty.h"
-#include "CWall.h"
-#include "CPath.h"
 #include <vector>
 #include <memory>
 #include "CActiveTile.h"
 #include "CTowerGreen.h"
-#include "CMap.h"
-#include <iomanip>
-#include <cassert>
 #include "CDefinition.h"
 #include "CEnemyImmune.h"
-
+#include "CDialog.h"
+#include <unistd.h>
+#include "CGame.h"
 using namespace std;
 
 int main() {
+    CGame h(11000,300);
+    if(!h.init()) {
+        std::cout << "Neco je spatne vojtechu\n";
+        return EXIT_FAILURE;
+    }
+    h.start();
+
+    /*
+    h.render();
+    CMap map;
+    map.initMap("examples/map/map.txt");
     vector<unique_ptr<CTower>> nvm;
-    bool x = CDefinition::loadTowerDef(nvm,"../examples/definition/tower_def.csv");
+    CDefinition def;
+    //nvm
+    bool x = def.loadTowerDef("examples/definition/tower_def.csv");
     cout << "Loading tower definition: " << boolalpha << x << "\n";
+    CDialog dialog(map,std::cout);
+    //dialog.openingText();
+    bool running = true;
+    bool save = false;
+    while(running){
+        //clearing screen;
+        std::cout << "\033[2J\033[1;1H";
+        map.renderMap(std::cout);
+        //render(); with score etc
+        int option = dialog.getOption();
+        if(option<=0){
+            if(option == 0)save = true;
+            running = false;
+            break;
+        }
+        if(option == 2){
+
+            usleep(1000000);
+            //buyTower();
+        }
+        //CRound??
+        //initRound();
+        //startRound();
+        cout << "Init round..\n";
+        usleep(1000000);
+        cout << "Starting round..\n";
+        usleep(1000000);
+    }
+     */
+    /*
     for(const auto& y : nvm ){
         //cout << x->printAttribute() << "\n";
         y->printAttribute(std::cout);
@@ -29,8 +68,9 @@ int main() {
     cout << "Loading enemy definition: " << boolalpha << x_en << "\n";
     for(const auto& y : nvm_en ){
         //cout << x->printAttribute() << "\n";
-        cout << y->health << "\n";
+        cout << y->getType()<< "\n";
     }
+     */
      /*
     CMap map;
     assert(map.initMap("../examples/map/map.txt"));

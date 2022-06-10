@@ -4,6 +4,7 @@
 #include "CTower.h"
 #include "CMap.h"
 #include <vector>
+#include <memory>
 /**
  * Class used for communicating with the user
  */
@@ -14,7 +15,7 @@ class CDialog{
      * @param towers reference tower definitions
      * @param map reference to map
      */
-     CDialog(std::vector<CTower>& towers, CMap& map);
+     CDialog(CMap& map, std::ostream& os);
 
      /**
       * Get option from the user on what he wants to do (a menu)
@@ -24,22 +25,21 @@ class CDialog{
 
      /**
       * Lists aviliable towers to buy
-      *
       * @return
       */
-     void listTowers();
+     void listTowers(const std::vector<std::unique_ptr<CTower>>& towers, int money)const;
 
      /**
       * Shows opening credits to the game
-      *
       */
-     void openingText();
+     void openingText()const;
 
-     /**
-      * Get from user coordinates and id of the tower he wants to buy
-      * @param id_tower input/output reference to what id of the tower user chose
-      * @return pair representing coordinates on the map
-      */
-     std::pair<int,int> towerCords(int& id_tower);
+     void buyTower(CMap& dialog_map,const std::vector<std::unique_ptr<CTower>>& towers, int money);
+
+
+private:
+    void clearScreen();
+    CMap& dialog_map;
+    std::ostream& dialog_os;
 };
 #endif //SEMESTRALNI_PRACE_CDIALOG_H

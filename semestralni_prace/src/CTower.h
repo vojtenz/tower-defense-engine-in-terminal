@@ -25,5 +25,7 @@ class CTower: public CActiveTile{
      std::string color;
      static std::map<std::string, std::string> colorMap;
      static std::map<std::string, std::string> initColorMap();
+     void priceDelim(std::ostream& os, int local_price)const;
+
 };
 #endif //SEMESTRALNI_PRACE_CTOWER_H

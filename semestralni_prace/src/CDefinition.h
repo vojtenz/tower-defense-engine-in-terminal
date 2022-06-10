@@ -11,7 +11,13 @@
  */
 class CDefinition{
     public:
-     static bool loadEnemyDef(std::vector<std::unique_ptr<CEnemy>>& enemy, std::string src);
-     static bool loadTowerDef(std::vector<std::unique_ptr<CTower>>& tower, std::string src);
+     bool loadDefinitions(std::string tower_src, std::string enemy_src);
+     bool loadEnemyDef(std::string src);
+     bool loadTowerDef(std::string src);
+    std::vector<std::unique_ptr<CTower>>& getTowerDefinition();
+    std::vector<std::unique_ptr<CEnemy>>& getEnemyDefinition();
+    private:
+     std::vector<std::unique_ptr<CEnemy>> enemy;
+     std::vector<std::unique_ptr<CTower>> tower;
 };
 #endif //SEMESTRALNI_PRACE_CDEFINITION_H

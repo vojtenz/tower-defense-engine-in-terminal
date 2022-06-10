@@ -26,7 +26,7 @@ bool CPathFinder::pathExists(const std::vector<std::shared_ptr<CTile>> &map, std
             tmp.x+=dir_x[j];
             tmp.y+=dir_y[j];
 
-            if(tmp.x>=0 && tmp.x<map_height && tmp.y>=0 && tmp.y<map_width){
+            if(tmp.x>=0 && (size_t)tmp.x<map_height && tmp.y>=0 && (size_t)tmp.y<map_width){
                 if(map.at(getMapPos(tmp))->getType() == "end") {
                     directions.push_back(dir[j]);
                     return true;
@@ -75,7 +75,7 @@ bool CPathFinder::pathFind(const std::vector<std::shared_ptr<CTile>> &map, std::
            tmp.x += dir_x[j];
            tmp.y += dir_y[j];
 
-           if (tmp.x < 0 || tmp.x >= map_height || tmp.y < 0 || tmp.y >= map_width)continue;
+           if (tmp.x < 0 || (size_t)tmp.x >= map_height || tmp.y < 0 || (size_t)tmp.y >= map_width)continue;
            if (visited.at(getMapPos(tmp))) continue;
            if (map.at(getMapPos(tmp))->getType() == "wall") continue;
            queue.push(tmp);

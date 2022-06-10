@@ -113,8 +113,9 @@ void CMap::reconstructPath(const std::string& directions) {
     }
 }
 
-void CMap::renderMap(std::ostream &os, bool coords, CTower* tower_ptr) {
-    coords ? renderCords(os, tower_ptr) : renderNoCords(os);
+void CMap::renderMap(std::ostream &os, bool coords, int x , int y, CTower* tower_ptr) {
+    coords ? renderCords(os,x,y, tower_ptr) : renderNoCords(os);
+    os << "\n";
 }
 
 void CMap::renderNoCords(std::ostream &os) {
@@ -124,15 +125,16 @@ void CMap::renderNoCords(std::ostream &os) {
     }
 }
 
-void CMap::renderCords(std::ostream &os, CTower* tower_ptr) {
+void CMap::renderCords(std::ostream &os, int x , int y, CTower* tower_ptr) {
     const short int coords_offset = 5;
     renderHorizontalCords(os,false, coords_offset);
     os << "\n";
     int line = 0;
+    int precalculated_i = (x*width)+y;
     for(size_t i = 0; i < CMap::map.size(); ++i){
         if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "") << line++ << std::string(coords_offset - 1, ' ');
-        if(tower_ptr != nullptr && i == (tower_ptr->pos_x*width)+tower_ptr->pos_y){
-            os << *tower_ptr;
+        if(tower_ptr!= nullptr && i == precalculated_i && x >=0 && y >= 0){
+            tower_ptr->print(os);
             continue;
         }
         os << *(CMap::map.at(i));
