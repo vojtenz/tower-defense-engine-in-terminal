@@ -12,7 +12,7 @@
 #define QUIT_GAME_NO_SAVE -1
 #define QUIT_BUY -3
 
-CDialog::CDialog(CMap &map, std::ostream& os):dialog_map(map), dialog_os(os){}
+CDialog::CDialog(std::ostream& os):dialog_os(os){}
 
 int CDialog::getOption() {
     dialog_os << "Menu:\n";
@@ -56,13 +56,13 @@ void CDialog::listTowers(const std::vector<std::unique_ptr<CTower>>& towers, int
     }
 }
 
-void CDialog::buyTower(CMap &map, const std::vector<std::unique_ptr<CTower>> &towers, int money) {
-    //while(true){
+void CDialog::buyTower(CMap &map, const std::vector<std::unique_ptr<CTower>> &towers, std::vector<std::shared_ptr<CTower>>& active_towers,int &money) {
+    while(true) {
         clearScreen();
         dialog_os << "Money: " << money << "\n\n";
         map.renderMap(dialog_os, true);
-        dialog_os << std::string(2,'\n');
-        listTowers(towers,money);
+        dialog_os << std::string(2, '\n');
+        listTowers(towers, money);
         dialog_os << "\nChoose ID of the tower you want to buy or type 'q' if you are done buying towers:\n";
         int tower_id = -1;
         bool expected_exit = false;
@@ -70,53 +70,58 @@ void CDialog::buyTower(CMap &map, const std::vector<std::unique_ptr<CTower>> &to
         std::istringstream isstream;
         std::cin.clear();
         std::cin.ignore(INT_MAX, '\n');
-        while(getline(std::cin,line)){
-            if(!line.empty() && line.at(0) == 'q') {
+        while (getline(std::cin, line)) {
+            if (!line.empty() && line.at(0) == 'q') {
                 expected_exit = true;
                 return;
             }
             isstream.clear();
             isstream.str(line);
-            if((!(isstream >> tower_id)) || tower_id<0 || tower_id >= towers.size()){
+            if ((!(isstream >> tower_id)) || tower_id < 0 || (size_t)tower_id >= towers.size()) {
                 dialog_os << "Please select valid tower ID\n";
                 continue;
             }
-            if(towers.at(tower_id)->getPrice()>money){
+            if (towers.at(tower_id)->getPrice() > money) {
                 dialog_os << "You dont have enough money for this one!\n";
                 continue;
             }
             expected_exit = true;
             break;
         }
-        if(!expected_exit) {
+        if (!expected_exit) {
             return;
         }
-        int x,y;
+        int x = -1, y = -1;
         dialog_os << "Select coordinates(x,y) you wish to put tower at (for example: '5 4'):\n";
-        while((!(std::cin >> x >> y) || x < 0 || y < 0 || x >= map.getHeight() || y >=map.getWidth() || !map.at(x,y)->isPlaceable()) && !std::cin.eof()){
+        while ((!(std::cin >> x >> y) || x < 0 || y < 0 || (size_t)x >= map.getHeight() || (size_t)y >= map.getWidth() ||
+                !map.at(x, y)->isPlaceable()) && !std::cin.eof()) {
             std::cin.clear();
-            std::cin.ignore(INT_MAX,'\n');
-            if(!map.at(x,y)->isPlaceable()){
+            std::cin.ignore(INT_MAX, '\n');
+           if (x >= 0 && y >= 0 && (size_t)x < map.getHeight() && (size_t)y < map.getWidth() && !map.at(x, y)->isPlaceable()) {
                 dialog_os << "You cant put tower at this place!\n";
                 continue;
             }
+
             dialog_os << "Please select valid coordinates based on the map as 'x y'\n";
         }
-        if(std::cin.eof())return;
+        if (std::cin.eof())return;
         clearScreen();
-        map.renderMap(dialog_os, true, x, y,towers.at(tower_id).get());
+        map.renderMap(dialog_os, true, x, y, towers.at(tower_id).get());
         char answ = 0;
         dialog_os << "Do you want to place tower like this? (y/n)\n";
-        while((!(std::cin >> answ) || (answ != 'y' && answ !='n')) && !std::cin.eof()){
+        while ((!(std::cin >> answ) || (answ != 'y' && answ != 'n')) && !std::cin.eof()) {
             dialog_os << "Please enter 'y' for yes and 'n' for no\n";
             std::cin.clear();
             std::cin.ignore(INT_MAX, '\n');
         }
-        if(std::cin.eof())return;
-        if(answ == 'y'){
-
+        if (std::cin.eof())return;
+        if (answ == 'y') {
+           std::shared_ptr<CTower> tmp_shared_ptr(towers.at(tower_id)->clone());
+            map.at(x, y) = tmp_shared_ptr;
+            active_towers.push_back(tmp_shared_ptr);
+            money -= towers.at(tower_id)->getPrice();
         }
-
+    }
 }
 
 void CDialog::clearScreen() {

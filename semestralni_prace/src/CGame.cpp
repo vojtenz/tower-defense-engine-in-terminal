@@ -7,6 +7,7 @@ bool CGame::start() {
     bool running = true;
     bool save = false;
     //dialog.openingText();
+    std::vector<std::shared_ptr<CTower>> active_towers;
     while(running){
             int option;
         do{
@@ -20,7 +21,7 @@ bool CGame::start() {
             if (option == 2) {
                 std::cout << "Buying towers..\n";
                 //usleep(1000000);
-                dialog.buyTower(map, definition.getTowerDefinition(), score);
+                dialog.buyTower(map, definition.getTowerDefinition(),active_towers, score);
             }
         }while(option!=1);
         if(option == -2){
@@ -66,7 +67,7 @@ void CGame::initRound() {
 
 }
 
-CGame::CGame(int starting_score, int number_of_life): dialog(map,std::cout) {
+CGame::CGame(int starting_score, int number_of_life): dialog(std::cout) {
     score = starting_score;
     heart = number_of_life;
 }

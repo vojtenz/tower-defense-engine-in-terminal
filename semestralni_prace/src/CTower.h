@@ -4,6 +4,7 @@
 
 #include "CActiveTile.h"
 #include <map>
+#include <memory>
 
 /**
  * Class inherited from CActiveTile representing generic tower
@@ -11,13 +12,13 @@
 class CTower: public CActiveTile{
     public:
      CTower(char symbol, int _price, int _range, int _dmg, const std::string& _color);
-     std::string getType()const override;
      int getPrice()const;
      int getRange()const;
      int getDmg()const;
      const std::string& getColor()const;
      void print(std::ostream& os) const override;
-     void printAttribute(std::ostream& os)const;
+     virtual void printAttribute(std::ostream& os)const;
+     virtual CTower* clone()const = 0;
     protected:
      int dmg;
      int price;

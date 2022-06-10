@@ -15,7 +15,7 @@ class CDialog{
      * @param towers reference tower definitions
      * @param map reference to map
      */
-     CDialog(CMap& map, std::ostream& os);
+     CDialog(std::ostream& os);
 
      /**
       * Get option from the user on what he wants to do (a menu)
@@ -34,12 +34,11 @@ class CDialog{
       */
      void openingText()const;
 
-     void buyTower(CMap& dialog_map,const std::vector<std::unique_ptr<CTower>>& towers, int money);
+     void buyTower(CMap& dialog_map,const std::vector<std::unique_ptr<CTower>>& towers, std::vector<std::shared_ptr<CTower>>& active_towers, int &money);
 
 
 private:
     void clearScreen();
-    CMap& dialog_map;
     std::ostream& dialog_os;
 };
 #endif //SEMESTRALNI_PRACE_CDIALOG_H

@@ -2,6 +2,7 @@
 #include "CDefinition.h"
 #include "CTowerGreen.h"
 #include "CEnemyImmune.h"
+#include "CTowerGeneric.h"
 #include <fstream>
 #include <iostream>
 bool CDefinition::loadEnemyDef(std::string src) {
@@ -46,7 +47,7 @@ bool CDefinition::loadTowerDef(std::string src) {
             if(color_str == "green"){
                 tower.push_back(std::make_unique<CTowerGreen>(symbol,price,range,dmg));
             }
-            else tower.push_back(std::make_unique<CTower>(symbol,price,range,dmg,color));
+           else tower.push_back(std::make_unique<CTowerGeneric>(symbol,price,range,dmg,color));
         }
         else break;
     }

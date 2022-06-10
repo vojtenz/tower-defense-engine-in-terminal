@@ -17,10 +17,6 @@ int CTower::getRange() const {
     return range;
 }
 
-std::string CTower::getType() const {
-    return "tower";
-}
-
 std::map<std::string, std::string> CTower::initColorMap() {
     std::map<std::string, std::string> map;
     //unfortunately used for enemies when they are about to die

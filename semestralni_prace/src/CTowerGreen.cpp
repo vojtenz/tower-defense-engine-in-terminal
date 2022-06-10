@@ -7,6 +7,6 @@ std::string CTowerGreen::getType() const {
     return "tower_green";
 }
 
-void CTowerGreen::print(std::ostream &os) const {
-    os << "\033[1;32m" << symbol << "\033[0m";
+CTower* CTowerGreen::clone() const {
+    return new CTowerGreen(*this);
 }
