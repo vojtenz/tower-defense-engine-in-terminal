@@ -51,6 +51,7 @@ bool CPathFinder::pathExists(const std::vector<std::shared_ptr<CTile>> &map, std
 }
 
 bool CPathFinder::pathFind(const std::vector<std::shared_ptr<CTile>> &map, std::string& directions) {
+    directions.clear();
     std::vector<bool> visited(map.size(),false);
     std::queue<Coord> queue;
     std::vector<Coord*> prev(map.size(), nullptr);
@@ -60,7 +61,6 @@ bool CPathFinder::pathFind(const std::vector<std::shared_ptr<CTile>> &map, std::
 
     visited.at(getMapPos(map_start_coord)) = true;
     bool isFound = false;
-
     while(!queue.empty()){
       Coord curr = queue.front();
        queue.pop();

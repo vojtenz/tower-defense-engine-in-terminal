@@ -4,28 +4,34 @@
 #include "CMap.h"
 #include "CDefinition.h"
 #include "CDialog.h"
+#include "CRound.h"
 /**
- * Main class for the whole game system
- *
+ * Main class for the whole game
  */
 class CGame{
     public:
      CGame(int starting_score = 250, int number_of_life = 150);
-     bool start();
+     /**
+      * Starts the game
+      */
+     void start();
+     /**
+      * Initialize all needed parameters (map,definitions,..)
+      * @return true if initialization was successful
+      */
      bool init();
      void clearScreen();
-     void render();
-     bool createEnemyLine();
      /**
-      * Round initiliazation
+      * Renders map, score(money), health, round,..
       */
-     void initRound();
+     void render();
     private:
      int score;
      int heart;
      CMap map;
      CDefinition definition;
      CDialog dialog;
+     CRound round_manager;
 
 
 };

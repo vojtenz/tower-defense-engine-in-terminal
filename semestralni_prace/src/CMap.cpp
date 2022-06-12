@@ -9,7 +9,6 @@
 #include "CTower.h"
 #include <iomanip>
 #include <iostream>
-
 std::shared_ptr<CTile>& CMap::at(size_t x) {
     if(x >= 0 && x < CMap::map.size())
         return CMap::map.at(x);
@@ -51,7 +50,9 @@ bool CMap::loadMapfromFile(const std::string& src) {
         if(local_height == 0) {
             local_width = current_line.length();
         }
-        if(current_line.length() != local_width) return false;
+        if(map_file.good() && (current_line.length() != local_width)) {
+            return false;
+        }
         int y = 0;
         for(const char curr_char : current_line){
             if(curr_char == 's') {
@@ -67,10 +68,14 @@ bool CMap::loadMapfromFile(const std::string& src) {
         ++x;
     }
 
-    if(!map_file.eof()) return false;
+    if(!map_file.eof()) {
+        return false;
+    }
 
     //map has to have one END and one START for cut-clear path
-    if(hasSE.first != 1 || hasSE.second !=1) return false;
+    if(hasSE.first != 1 || hasSE.second !=1) {
+        return false;
+    }
 
     CMap::height = local_height;
     CMap::width = local_width;
@@ -130,7 +135,7 @@ void CMap::renderCords(std::ostream &os, int x , int y, CTower* tower_ptr) {
     renderHorizontalCords(os,false, coords_offset);
     os << "\n";
     int line = 0;
-    int precalculated_i = (x*width)+y;
+    size_t precalculated_i = (x*width)+y;
     for(size_t i = 0; i < CMap::map.size(); ++i){
         if((i%CMap::width)==0) os  << (i!=0 ? "\n" : "") << line++ << std::string(coords_offset - 1, ' ');
         if(tower_ptr!= nullptr && i == precalculated_i && x >=0 && y >= 0){
@@ -182,7 +187,14 @@ size_t CMap::getHeight() const{
     return CMap::height;
 }
 
-const std::string& CMap::getPathDirection() const {
-    return path_direction;
+std::pair<int,int> CMap::getStartPos()const{
+    return start;
+}
+
+char CMap::getPathDirection(size_t pos) const {
+    if(pos>=path_direction.size()){
+        return 'E';
+    }
+    return path_direction.at(pos);
 }
 

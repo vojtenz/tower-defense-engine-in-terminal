@@ -41,10 +41,17 @@ Ukázky:
     https://en.wikipedia.org/wiki/GemCraft
     http://plantsvszombies.wikia.com/wiki/Main_Page
 
+Upřesňující zadání:
+
 Při vypracovávání jsem se inspiroval principem tower defense hry TD BLOONS 5
-Z předem daného souboru se načte definice věží a nepátel.
-Načte se  také z předem daného souboru definice mapy, mapa může a nemusí obsahovat cestu kudy nepřátel jdou. Pokud cestu neobsahuje,
-cesta se pomocí BFS vyhledá sama a do mapy zakreslí. Mapa je reprezentována jako 1D pole ukazelů na společnou třídu CTile.
-Uživatel je vyzván po startu hry ke koupi věží a následnému umístění pomocí vstupu do terminálu (uživatel zadá id věže a souřadnice).
-Po koupi se hraje, npřátelé se snaží probojovat až na druhý konec mapy, kolo je ukončeno 2 způsoby, pokud se velký počet nepřátel dostane až na druhý konec mapy.
-Nebo pokud jsou všichni nepřátele zabiti. Následuje opět dialog s uživatelem o nakoupení věží a posilnění nepřátel (další druhy, větši počet)
+-Z předem daného souboru se načte definice věží a nepátel.
+-Načte se také z předem daného souboru definice mapy, mapa může a nemusí obsahovat cestu kudy nepřátel jdou. Pokud cestu neobsahuje,
+ cesta se pomocí BFS vyhledá sama a do mapy zakreslí. Mapa je reprezentována jako 1D pole ukazelů na společnou třídu CTile.
+-Mapa musí být čtyřúhelník, musí obsahovat právě jeden start a právě jeden cíl
+-Po spuštění hry se objeví menu, lze nakoupit věže či začít kolo, ukládat rozehranou hru či načítat uloženou hru
+-Po spuštění kola se nepřátelé pohybují po cestě až do cíle, kolo končí pokud jsou všichni nepřátelé zabiti nebo se mnoho nepřátel dostalo až  do cíle
+-Mapa je reprezentována jako vektor ukazatelů na hlavní abstraktní třídu CTile, veškeré políčka na mapě jsou jejími potomky. Potomci musí impl ementovat metodu getType(), potomci dále můžou implementovat například vlastní print metodu, která defalutně vypíše jen symbol
+-CEmpty, CStart, CEnd, CPath, CWall jsou třídy reprezentující prvky na mapě
+-Na mapě se vyskytují i věže a nepřátelé
+-CTower je abstraktní třída společná pro všechny druhy věží, každý druh věže, který je potomek CTower musí implementovat metodu clone
+-CEnemy je abstraktní třída společná pro všechny druhy nepřátel, každý druh nepřátelé, který je pomotek CEnemy musí implementovat metodu clone a metodu towerVisit, podle které daný typ nepřítele reaguje (například někteří nepřátelé jsou immunní vůči různým věžím)	

@@ -3,7 +3,7 @@
 //CStart.h
 #include "CTile.h"
 /**
- * Class inherited from CTile representing starting tile
+ * Class inherited from CTile representing starting tile from which are enemies generated
  */
 class CStart: public CTile{
 public:

@@ -7,7 +7,5 @@ std::string CEmpty::getType() const {
     return "empty";
 }
 
-bool CEmpty::isBlock() {return false;}
-
 bool CEmpty::isPlaceable() {return true;}
 

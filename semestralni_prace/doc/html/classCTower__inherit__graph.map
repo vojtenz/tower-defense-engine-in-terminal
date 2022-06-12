@@ -1,7 +1,0 @@
-<map id="CTower" name="CTower">
-<area shape="rect" id="node1" title=" " alt="" coords="92,344,201,495"/>
-<area shape="rect" id="node4" href="$classCTowerGreen.html" title=" " alt="" coords="5,543,139,649"/>
-<area shape="rect" id="node5" href="$classCTowerRed.html" title=" " alt="" coords="163,543,282,649"/>
-<area shape="rect" id="node2" href="$classCActiveTile.html" title=" " alt="" coords="86,175,207,296"/>
-<area shape="rect" id="node3" href="$classCTile.html" title=" " alt="" coords="97,5,196,127"/>
-</map>

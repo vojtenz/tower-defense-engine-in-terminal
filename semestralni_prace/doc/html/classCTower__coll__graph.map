@@ -1,8 +1,0 @@
-<map id="CTower" name="CTower">
-<area shape="rect" id="node1" title=" " alt="" coords="121,513,230,635"/>
-<area shape="rect" id="node2" href="$classCActiveTile.html" title=" " alt="" coords="5,344,127,451"/>
-<area shape="rect" id="node3" href="$classCTile.html" title=" " alt="" coords="9,145,107,267"/>
-<area shape="rect" id="node4" title=" " alt="" coords="33,5,83,83"/>
-<area shape="rect" id="node5" title=" " alt="" coords="144,167,183,245"/>
-<area shape="rect" id="node6" title=" " alt="" coords="249,359,307,436"/>
-</map>

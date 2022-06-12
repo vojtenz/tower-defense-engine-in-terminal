@@ -17,7 +17,6 @@ public:
         height = 0;
     }
     /**
-     *
      * @param x position in vector map
      * @return reference to the object at that position
      */
@@ -31,32 +30,42 @@ public:
     std::shared_ptr<CTile>& at(size_t x, size_t y);
 
     /**
-     *
+     * Initialize the map, loads from file, if no path is found or the path is invalid finds path based on BFS
      * @param src path to the source file
      * @return true if initialization(loading from the file, finding path,...) of the map was successful
      */
-
     bool initMap(const std::string& src_file);
 
     /**
-     * Prints the map to the output stream
-     * @param os output stream in which map should be printed to
-     * @param coords optional parameter determining if the printing should be with coordinates around the map (default false)
-     * @param tower_ptr optional parameter enabling to print tower in certain position for user to see without the need to add tower to the map
+     * Prints map to the output stream
+     * @param os reference to the output stream
+     * @param coords optional parameter, if true, map will be printed with coordinates around it
+     * @param x optional parameter, x position on the map
+     * @param y optional parameter, y position on the map
+     * @param tower_ptr optional pointer to the tower with coordinates x and y given before, to print certain tower to the map without the need to directly inserting it to the map, just for the view(when buying)
      */
     void renderMap(std::ostream& os, bool coords = false, int x = -1, int y = -1, CTower* tower_ptr = nullptr);
 
     size_t getWidth() const;
 
     size_t getHeight() const;
-
-    const std::string& getPathDirection()const;
+    /**
+     * Returns pair representing coordinates of the starting position
+     * @return pair<int,int> as coordinates (x,y)
+     */
+    std::pair<int,int> getStartPos()const;
+    /**
+     * Returns either 'U','L','R','D','E' based on how many step enemy has taken
+     * @param pos position on the path (number of steps taken)
+     * @return char representing which direction enemy should be headed next
+     */
+    char getPathDirection(size_t pos)const;
 
 private:
      std::pair<int,int> start;
      size_t width;
      size_t height;
-     std::string path_direction;
+     std::string path_direction; /**string containing all the directions to the end*/
      std::ifstream map_file;
      std::vector<std::shared_ptr<CTile>> map; /** the container which is the whole map*/
     /**
@@ -65,17 +74,8 @@ private:
      */
      void addCharToMap(char x);
 
-     /**
-      * Prints map with the coordinates around the map
-      * @param os reference to the output stream
-      * @param tower_ptr Optional parameter, pointer to the tower which should be printed at certain position for user to see without the need to insert tower to the map
-      */
      void renderCords(std::ostream& os, int x , int y, CTower* tower_ptr);
 
-     /**
-      * Prints map without the coordinates
-      * @param os reference to the output stream
-      */
      void renderNoCords(std::ostream& os);
      /**
       * Prints the horizontal coordinates

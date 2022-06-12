@@ -3,11 +3,11 @@
 //CTowerGreen.h
 #include "CTower.h"
 /**
- * Class inherited from CActiveTile representing green tower
+ * Derived class from base class CTower representing special green tower
  */
 class CTowerGreen: public CTower{
     public:
-     CTowerGreen(char symbol, int price, int range, int dmg);
+     CTowerGreen(char symbol, int price, int range, int dmg, int id);
      std::string getType()const override;
      CTower * clone() const override;
 };

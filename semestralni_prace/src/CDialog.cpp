@@ -4,7 +4,6 @@
 #include <iostream>
 #include <climits>
 #include <iomanip>
-#include <climits>
 #define EOF_CODE -2
 #define START_ROUND 1
 #define BUY_TOWERS 2
@@ -17,9 +16,9 @@ CDialog::CDialog(std::ostream& os):dialog_os(os){}
 int CDialog::getOption() {
     dialog_os << "Menu:\n";
     int option = 0;
-    dialog_os << "1) start round\n2) buy towers\n3) quit game\n";
-    while((!(std::cin >> option) || option<=0 || option >3) && !std::cin.eof()){
-        dialog_os << "Incorrect input, please enter correct option (1,2,3)\n";
+    dialog_os << "1) start round\n2) buy towers\n3) quit game\n4) load saved game\n";
+    while((!(std::cin >> option) || option<=0 || option >4) && !std::cin.eof()){
+        dialog_os << "Incorrect input, please enter correct option (1,2,3,4)\n";
         std::cin.clear();
         std::cin.ignore(INT_MAX,'\n');
     }
@@ -49,7 +48,6 @@ void CDialog::openingText() const{
 
 void CDialog::listTowers(const std::vector<std::unique_ptr<CTower>>& towers, int money)const{
     for(size_t i = 0; i < towers.size(); ++i){
-        dialog_os << "ID: " << i << " | ";
         towers.at(i)->printAttribute(dialog_os);
         dialog_os << (money < towers.at(i)->getPrice() ? "\033[1;31m (Not enough money)" : "") << "\033[0m";
         dialog_os << "\n";
@@ -117,9 +115,11 @@ void CDialog::buyTower(CMap &map, const std::vector<std::unique_ptr<CTower>> &to
         if (std::cin.eof())return;
         if (answ == 'y') {
            std::shared_ptr<CTower> tmp_shared_ptr(towers.at(tower_id)->clone());
-            map.at(x, y) = tmp_shared_ptr;
-            active_towers.push_back(tmp_shared_ptr);
-            money -= towers.at(tower_id)->getPrice();
+           tmp_shared_ptr->pos_x = x;
+           tmp_shared_ptr->pos_y = y;
+           map.at(x, y) = tmp_shared_ptr;
+           active_towers.push_back(tmp_shared_ptr);
+           money -= towers.at(tower_id)->getPrice();
         }
     }
 }

@@ -3,6 +3,7 @@
 #include "CTowerGreen.h"
 #include "CEnemyImmune.h"
 #include "CTowerGeneric.h"
+#include "CEnemyGeneric.h"
 #include <fstream>
 #include <iostream>
 bool CDefinition::loadEnemyDef(std::string src) {
@@ -18,7 +19,7 @@ bool CDefinition::loadEnemyDef(std::string src) {
         int err;
         err = sscanf(current_line.c_str(),"%c,%d,%50s",&symbol,&health,immune);
         if(err == 2) {
-            enemy.push_back(std::make_unique<CEnemy>(symbol,health));
+            enemy.push_back(std::make_unique<CEnemyGeneric>(symbol,health));
             continue;
         }
         if(err == 3) {
@@ -28,7 +29,11 @@ bool CDefinition::loadEnemyDef(std::string src) {
         }
         break;
     }
-    if(!src_file_stream.eof()) return false;
+    if(!src_file_stream.eof()) {
+        src_file_stream.close();
+        return false;
+    }
+    src_file_stream.close();
     return true;
 }
 
@@ -36,6 +41,7 @@ bool CDefinition::loadTowerDef(std::string src) {
     //in case of multiple loading of the definitions
     if(!tower.empty())tower.clear();
     std::ifstream src_file_stream(src);
+    int id = 0;
     while(src_file_stream.good()){
         std::string current_line;
         getline(src_file_stream, current_line);
@@ -45,13 +51,18 @@ bool CDefinition::loadTowerDef(std::string src) {
         if((sscanf(current_line.c_str(), "%c,%d,%d,%d,%50s",&symbol,&price,&range,&dmg,color))==5){
             std::string color_str(color);
             if(color_str == "green"){
-                tower.push_back(std::make_unique<CTowerGreen>(symbol,price,range,dmg));
+                tower.push_back(std::make_unique<CTowerGreen>(symbol,price,range,dmg,id));
             }
-           else tower.push_back(std::make_unique<CTowerGeneric>(symbol,price,range,dmg,color));
+            else tower.push_back(std::make_unique<CTowerGeneric>(symbol,price,range,dmg,color,id));
+            id++;
         }
         else break;
     }
-    if(!src_file_stream.eof()) return false;
+    if(!src_file_stream.eof()) {
+        src_file_stream.close();
+        return false;
+    }
+    src_file_stream.close();
     return true;
 }
 

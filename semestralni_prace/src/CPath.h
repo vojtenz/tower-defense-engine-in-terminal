@@ -4,13 +4,12 @@
 //CPath.h
 #include "CTile.h"
 /**
- * Class inherited from CTile representing path
+ * Class inherited from CTile representing path on which enemies are moving towards the ending tile
  */
 class CPath: public CTile{
     public:
      explicit CPath(char symbol = ':');
      std::string getType()const override;
-     bool isBlock() override;
 };
 
 

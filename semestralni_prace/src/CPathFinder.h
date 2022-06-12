@@ -5,9 +5,18 @@
 #include "CTile.h"
 #include <memory>
 #include <vector>
-
+/**
+ * Class for finding path or creating it in the map
+ */
 class CPathFinder{
 public:
+    /**
+     * Constructor of the CPathFinder
+     * @param _width with of the map
+     * @param _height height of the map
+     * @param x_start x coordinate of the start
+     * @param y_start y coordinate of the start
+     */
     CPathFinder(size_t _width, size_t _height, int x_start, int y_start);
     /**
         * Finds if there is already existing path from start to end in the game map
@@ -17,7 +26,7 @@ public:
     */
     bool pathExists(const std::vector<std::shared_ptr<CTile>>& map, std::string& directions);
     /**
-     * Using BFS algorithm finds shortest possible path
+     * Using BFS algorithm finds shortest possible path, used when no path is found (pathExists returns false)
      * @param map reference to the map
      * @param directions input/output parameter, final path determined by U,D,L,R from the start to end
      * @return true if path was found, false if path from start to end doesnt exist

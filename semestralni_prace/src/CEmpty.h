@@ -10,7 +10,6 @@ class CEmpty: public CTile{
     public:
      explicit CEmpty(char symbol = ' ');
      std::string getType()const override;
-     bool isBlock() override;
      bool isPlaceable() override;
 };
 

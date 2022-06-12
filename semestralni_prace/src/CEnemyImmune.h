@@ -3,14 +3,15 @@
 //CEnemyImmune.h
 #include "CEnemy.h"
 /**
- * Class representing enemy which is immune to some tower
- *
+ * Class representing enemy which is immune to some tower based on its color
  */
 class CEnemyImmune: public CEnemy{
     public:
-     CEnemyImmune(char symbol, int _health, const std::string& _tower_color);
+     CEnemyImmune(char symbol, int _health, std::string _tower_color);
      std::string getType()const override;
-     std::string getImmuneTower() const;
+     const std::string& getImmuneTower() const;
+     CEnemy * clone() const override;
+     bool towerVisit(CTower *tower_ptr) override;
     private:
      std::string tower_color;
 };

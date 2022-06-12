@@ -3,12 +3,8 @@
 
 CEnemy::CEnemy(char symbol, int _health)
         : CActiveTile(symbol){
-        health = _health;
-}
-
-
-std::string CEnemy::getType() const {
-    return "enemy";
+        starting_health = _health;
+        health = starting_health;
 }
 
 void CEnemy::print(std::ostream &os) const {
@@ -16,3 +12,7 @@ void CEnemy::print(std::ostream &os) const {
 }
 
 std::string CEnemy::bleeding_color = "\033[0;31m";
+
+int CEnemy::getStartingHealth()const{
+    return starting_health;
+}
